@@ -12,7 +12,7 @@
         <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
         <!-- Title -->
-        <title>LWCC - @yield('title')</title>
+        <title>UPSA IMP - @yield('title')</title>
 
         <!-- Styles -->
         <link href="{{ asset("static/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
