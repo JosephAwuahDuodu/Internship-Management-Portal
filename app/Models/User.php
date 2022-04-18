@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -46,5 +47,20 @@ class User extends Authenticatable
     public function user_role()
     {
         return $this->hasOne(UserRole::class, "user_id", "id");
+    }
+
+    public static function is_admin()
+    {
+        return Auth::user()->user_role->role_id == 1 ? true : false;
+    }
+
+    public static function is_student()
+    {
+        return Auth::user()->user_role->role_id == 3 ? true : false;
+    }
+
+    public static function is_organization()
+    {
+        return Auth::user()->user_role->role_id == 2 ? true : false;
     }
 }

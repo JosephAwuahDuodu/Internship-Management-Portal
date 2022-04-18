@@ -53,7 +53,12 @@
 
     <body>
         <div class="app align-content-stretch d-flex flex-wrap">
-            @include('layouts.sidebar')
+            @if (\App\Models\User::is_admin())
+                @include('layouts.sidebar')
+            @elseif (\App\Models\User::is_organization())
+                @include('layouts.org_sidebar')
+            @endif
+
             <div class="app-container">
                 @include('layouts.search')
                 @include('layouts.app_header')
