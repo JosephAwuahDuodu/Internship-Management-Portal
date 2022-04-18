@@ -56,9 +56,9 @@
 
             <!-- Email Address -->
             <div>
-                <x-label for="phone" :value="__('Username or Student ID')" />
+                <x-label for="username" :value="__('Username or Student ID')" />
 
-                <x-input id="phone" class="form-control m-b-md" id="signInEmail" type="phone" name="phone" :value="old('phone')" required autofocus />
+                <x-input id="username" class="form-control m-b-md" id="signInEmail" type="username" name="username" :value="old('username')" required autofocus />
             </div>
 
             <!-- Password -->

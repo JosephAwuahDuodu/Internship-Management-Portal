@@ -27,6 +27,7 @@
         <link href="{{ asset("static/plugins/perfectscroll/perfect-scrollbar.css") }}" rel="stylesheet">
         <link href="{{ asset("static/plugins/select2/css/select2.min.css") }}" rel="stylesheet">
 
+        <script src="{{ asset("static/plugins/jquery/jquery-3.5.1.min.js") }}"></script>
 
         <!-- Theme Styles -->
         <style>
@@ -68,22 +69,7 @@
                                 </div>
                             </div>
 
-                            @if(session('success'))
-                                <div class="alert alert-success font-weight-bolder"> {{ session('success') }} </div>
-                            @endif
-                            @if(session('error'))
-                                <div class="alert alert-danger font-weight-bolder"> {{ session('error') }} </div>
-                            @endif
-
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            @include('components.flash_message')
 
                             @yield('main_content')
 
@@ -97,13 +83,13 @@
 
 
     <!-- Javascripts -->
-    <script src="{{ asset("static/plugins/jquery/jquery-3.5.1.min.js") }}"></script>
+
     <script src="{{ asset("static/plugins/bootstrap/js/bootstrap.min.js") }}"></script>
     <script src="{{ asset("static/plugins/perfectscroll/perfect-scrollbar.min.js") }}"></script>
     <script src="{{ asset("static/js/main.min.js") }}"></script>
     <script src="{{ asset("static/js/custom.js") }}"></script>
     <script src="{{ asset("static/plugins/select2/js/select2.full.min.js") }}"></script>
-    <script>
+    <script id="appendable">
         $(document).ready(function() {
             $('select').select2({width: '100%'});
         });

@@ -17,10 +17,13 @@
             <li><a href="{{ route('home') }}"><i class="material-icons-two-tone">dashboard</i>Home</a>
             </li>
             <li>
-                <a href=""><i class="material-icons-two-tone">cloud_queue</i>Students</a>
+                <a href=""><i class="material-icons-two-tone">book</i>Internship Offers</a>
             </li>
             <li>
-                <a href=""><i class="material-icons-two-tone">calendar_today</i>Organisations</a>
+                <a href=""><i class="material-icons-two-tone">person</i>Students</a>
+            </li>
+            <li>
+                <a href="{{ route('organizations.index') }}"><i class="material-icons-two-tone">business</i>Organisations</a>
             </li>
 
             <li class="sidebar-title">
@@ -31,6 +34,7 @@
             <li class="sidebar-title">
                 System
             </li>
+            <li><a href="{{ route('user.index') }}"><i class="material-icons-two-tone">book</i>Manage Users</a></li>
             <li><a href=""><i class="material-icons-two-tone">book</i>System Logs</a></li>
             <li><a href=""><i class="material-icons-two-tone">edit</i>Edit My Profile</a></li>
 

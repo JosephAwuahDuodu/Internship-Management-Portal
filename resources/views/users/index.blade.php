@@ -1,20 +1,20 @@
 @extends('layouts.base')
-@section('title', "Members")
+@section('title', "Users")
 
-@section('page_title', 'Members')
+@section('page_title', 'Users')
 
 @section('main_content')
     <div class="row">
         <div class="col">
-            @if ($members ?? "")
-                @include('members._members', ['members'=>$members])
+            @if ($users ?? "")
+                @include('users._users', ['users'=>$users])
             @else
                 <h3>Nothing to display</h3>
             @endif
         </div>
     </div>
 
-    @include('members._add_member_modal')
+    @include('users._add_user_modal')
 
 @endsection
 
