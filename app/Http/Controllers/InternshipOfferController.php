@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\InternshipOfferService;
 use App\Models\InternshipOffer;
+// use App\Http\Services\IntershipOfferService;
 use Illuminate\Http\Request;
 
 class InternshipOfferController extends Controller
@@ -14,7 +16,7 @@ class InternshipOfferController extends Controller
      */
     public function index()
     {
-        //
+        return view('organization.internship_offers.index');
     }
 
     /**
@@ -33,9 +35,9 @@ class InternshipOfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, InternshipOfferService $offer)
     {
-        //
+        $offer->save_offer($request);
     }
 
     /**

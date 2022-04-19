@@ -18,6 +18,13 @@ class BaseServices {
         return is_null($id) ? Industry::all() : Industry::where("industry_id", $id)->first();
     }
 
+    public static function generate_token()
+    {
+        $one = random_int(1000, 9999);
+        $two = random_int(1000, 9999);
+        return str_shuffle($one.$two);
+    }
+
 
     public static function is_admin()
     {
