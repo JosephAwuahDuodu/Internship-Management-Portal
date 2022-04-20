@@ -5,13 +5,12 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () { return view('homepage.index'); })->middleware('auth')->name('home');
+
+Route::get('/', function () { return view('homepage.index'); })->middleware(['auth', 'role_checker'])->name('home');
 
 Route::middleware(['auth', 'admin_access'])->prefix('admin')->group(function () {
 
     Route::get('/', function () { return view('admin.index'); })->name('admin');
-
-    // Route::get('/student', function () { return view('student.index'); })->name('student');
 
     Route::resource('organizations', OrganizationController::class);
     Route::resource('user', UserController::class);
@@ -24,7 +23,7 @@ Route::middleware(['auth', 'org_access'])->prefix('org')->group(function () {
 });
 
 Route::middleware(['auth', 'student_access'])->prefix('student')->group(function () {
-    Route::get('/', function () { return view('organization.index'); })->name('org');
+    Route::get('/', function () { return view('organization.index'); })->name('student');
 
 });
 
