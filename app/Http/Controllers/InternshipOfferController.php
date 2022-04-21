@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\BaseServices;
 use App\Http\Services\InternshipOfferService;
 use App\Models\InternshipOffer;
 // use App\Http\Services\IntershipOfferService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class InternshipOfferController extends Controller
 {
@@ -14,9 +16,11 @@ class InternshipOfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(InternshipOfferService $offer)
     {
-        return view('organization.internship_offers.index');
+        $offers = $offer->get_offers();
+        Log::info($offers);
+        return view('organization.internship_offers.index', compact('offers'));
     }
 
     /**
@@ -35,9 +39,23 @@ class InternshipOfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, InternshipOfferService $offer)
+    public function store(Request $request, InternshipOfferService $internship_offer)
     {
-        $offer->save_offer($request);
+        $new_offer =$this->validate($request, [
+            'title' => 'string|string',
+            'job_description' => 'nullable|string',
+            'dept' => 'nullable|string',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+        ]);
+
+        $offer = $internship_offer->save_offer($new_offer);
+
+        if ($offer) {
+            return back()->with('success', 'Internship Offer Saved Successfully');
+        } else {
+            return back()->with('error', 'Internship Offer Counld Not Be Saved');
+        }
     }
 
     /**

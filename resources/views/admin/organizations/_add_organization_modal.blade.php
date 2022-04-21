@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="add_organization_modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_internship_offer_modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
