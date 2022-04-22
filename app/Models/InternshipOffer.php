@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class InternshipOffer extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected$guarded = ['id'];
+    // protected $primary_key = 'offer_id';
+    protected $guarded = ['id'];
 }

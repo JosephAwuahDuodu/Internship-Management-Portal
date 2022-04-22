@@ -64,9 +64,11 @@ class InternshipOfferController extends Controller
      * @param  \App\Models\InternshipOffer  $internshipOffer
      * @return \Illuminate\Http\Response
      */
-    public function show(InternshipOffer $internshipOffer)
+    public function show(Request $req)
     {
-        //
+        $offer = InternshipOffer::where('offer_id', $req->internship_offer)->first();
+        $applicants = [];
+        return view('organization.internship_offers.show', compact('offer', 'applicants'));
     }
 
     /**
