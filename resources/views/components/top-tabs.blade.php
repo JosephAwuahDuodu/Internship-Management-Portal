@@ -4,16 +4,15 @@
             <div class="card-body">
                 <div class="widget-stats-container d-flex">
                     <div class="widget-stats-icon widget-stats-icon-primary">
-                        <i class="material-icons-outlined">paid</i>
+                        <i class="material-icons-outlined">book</i>
                     </div>
                     <div class="widget-stats-content flex-fill">
-                        <span class="widget-stats-title">Internship Requests</span>
-                        <span class="widget-stats-amount">900 </span>
-                        <span class="widget-stats-info">410 Assigned</span>
+                        <span class="widget-stats-title">Internship Offers</span>
+                        <span class="widget-stats-amount">{{ count($internship_offers) ?? 0 }} </span>
                     </div>
-                    <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
+                    {{-- <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
                         <i class="material-icons">keyboard_arrow_down</i> 4%
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -27,11 +26,7 @@
                     </div>
                     <div class="widget-stats-content flex-fill">
                         <span class="widget-stats-title">Active Users</span>
-                        <span class="widget-stats-amount">23,491</span>
-                        <span class="widget-stats-info">790 unique this month</span>
-                    </div>
-                    <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                        <i class="material-icons">keyboard_arrow_up</i> 12%
+                        <span class="widget-stats-amount">{{ count($users) ?? 0 }}</span>
                     </div>
                 </div>
             </div>
@@ -42,15 +37,11 @@
             <div class="card-body">
                 <div class="widget-stats-container d-flex">
                     <div class="widget-stats-icon widget-stats-icon-danger">
-                        <i class="material-icons-outlined">file_download</i>
+                        <i class="material-icons-outlined">house</i>
                     </div>
                     <div class="widget-stats-content flex-fill">
-                        <span class="widget-stats-title">Downloads</span>
-                        <span class="widget-stats-amount">140,390</span>
-                        <span class="widget-stats-info">87 items downloaded</span>
-                    </div>
-                    <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                        <i class="material-icons">keyboard_arrow_up</i> 7%
+                        <span class="widget-stats-title">Organizations</span>
+                        <span class="widget-stats-amount">{{ count($organizations) ?? 0 }}</span>
                     </div>
                 </div>
             </div>

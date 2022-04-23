@@ -5,21 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Services\BaseServices;
 use App\Http\Services\InternshipOfferService;
 use App\Models\InternshipOffer;
+use App\Models\User;
+use App\Models\UserRole;
 // use App\Http\Services\IntershipOfferService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class InternshipOfferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(InternshipOfferService $offer)
     {
-        $offers = $offer->get_offers();
+        $org_id =User::find_organization_id();
+        $offers = $offer->get_offers(0, $org_id);
         Log::info($offers);
+        // dd(User::find_organization_id());
         return view('organization.internship_offers.index', compact('offers'));
     }
 

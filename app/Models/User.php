@@ -49,6 +49,12 @@ class User extends Authenticatable
         return $this->hasOne(UserRole::class, "user_id", "id");
     }
 
+    public static function find_organization_id():string
+    {
+        $organisation = UserRole::where([['user_id', Auth::user()->id], ['org_id', '!=', '']])->first();
+        return $organisation->org_id;
+    }
+
     public static function is_admin()
     {
         return Auth::user()->user_role->role_id == 1 ? true : false;

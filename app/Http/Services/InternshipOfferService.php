@@ -21,8 +21,16 @@ class InternshipOfferService {
         }
     }
 
-    public function get_offers(int $limit = 0)
+    public function get_offers(int $limit = 0, string $org_id = '')
     {
-        return $limit <= 0 ? InternshipOffer::all() : InternshipOffer::paginate($limit);
+        Log::info("\n ORG ID: $org_id");
+
+        if ($org_id != '') {
+            Log::info("\n\n IN ORGANIZATION ");
+            return $limit <= 0 ? InternshipOffer::all() : InternshipOffer::paginate($limit);
+        } else {
+            Log::info("\n\n IN ALL ");
+            return $limit <= 0 ? InternshipOffer::where('org_id', $org_id)->get() : InternshipOffer::where('org_id', $org_id)->paginate($limit);
+        }
     }
 }
