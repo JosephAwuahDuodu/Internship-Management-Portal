@@ -20,7 +20,7 @@
                 <a href="{{ route('internship_offers.index') }}"><i class="material-icons-two-tone">book</i>Internship Offers</a>
             </li>
             <li>
-                <a href=""><i class="material-icons-two-tone">person</i>Students</a>
+                <a href="{{ route('students.index') }}"><i class="material-icons-two-tone">person</i>Students</a>
             </li>
             <li>
                 <a href="{{ route('organizations.index') }}"><i class="material-icons-two-tone">business</i>Organisations</a>

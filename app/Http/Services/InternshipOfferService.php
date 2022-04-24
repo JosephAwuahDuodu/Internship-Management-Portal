@@ -23,7 +23,7 @@ class InternshipOfferService {
 
     public function get_offers(int $limit = 0, string $org_id = '')
     {
-        Log::info("\n ORG ID: $org_id");
+        // Log::info("\n ORG ID: $org_id");
 
         if ($org_id != '') {
             Log::info("\n\n IN ORGANIZATION ");

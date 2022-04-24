@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('student_id');
             $table->string('name')->nullable();
             $table->string('programme');
-            $table->string('phone', 12)->nullable();
+            $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->text('bio')->nullable();
             $table->boolean('active_status')->default(true);

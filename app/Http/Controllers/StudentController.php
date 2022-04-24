@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\StudentsService;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -12,9 +14,12 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(StudentsService $students)
     {
-        //
+        $org_id = User::is_organization() ? User::find_organization_id() : "";
+        $all_students = $students->fetch_students(0, $org_id);
+
+        return view('admin.students.index', compact('all_students'));
     }
 
     /**
