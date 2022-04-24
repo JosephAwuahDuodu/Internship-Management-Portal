@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col">
             @if ($organizations ?? "")
-                @include('organizations._organizations', ['organizations'=>$organizations])
+                @include('admin.organizations._organizations', ['organizations'=>$organizations])
             @else
                 <h3>Nothing to display</h3>
             @endif
         </div>
     </div>
 
-    @include('organizations._add_organization_modal')
+    @include('admin.organizations._add_organization_modal')
 
 @endsection
 

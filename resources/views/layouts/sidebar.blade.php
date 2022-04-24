@@ -17,7 +17,7 @@
             <li><a href="{{ route('home') }}"><i class="material-icons-two-tone">dashboard</i>Home</a>
             </li>
             <li>
-                <a href=""><i class="material-icons-two-tone">book</i>Internship Offers</a>
+                <a href="{{ route('internship_offers.index') }}"><i class="material-icons-two-tone">book</i>Internship Offers</a>
             </li>
             <li>
                 <a href=""><i class="material-icons-two-tone">person</i>Students</a>

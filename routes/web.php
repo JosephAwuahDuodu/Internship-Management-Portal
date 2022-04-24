@@ -13,6 +13,7 @@ Route::middleware(['auth', 'admin_access'])->prefix('admin')->group(function () 
 
     Route::get('/', [HomeController::class, 'admin'])->name('admin');
 
+    Route::resource('internship_offers', InternshipOfferController::class)->only(['show', 'index']);
     Route::resource('organizations', OrganizationController::class);
     Route::resource('user', UserController::class);
     Route::post('add_new_user', [UserController::class, 'add_new_user'])->name('add_new_user');

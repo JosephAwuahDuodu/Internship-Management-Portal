@@ -23,7 +23,7 @@ class UserController extends Controller
         $roles = Role::all();
         $orgs = Organization::all();
         // dd($orgs);
-        return view('users.index', compact('users', 'orgs', 'roles'));
+        return view('admin.users.index', compact('users', 'orgs', 'roles'));
     }
 
     public function add_new_user(Request $request)

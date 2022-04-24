@@ -16,22 +16,11 @@ class InternshipOfferController extends Controller
 {
     public function index(InternshipOfferService $offer)
     {
-        $org_id =User::find_organization_id();
+        $org_id = User::is_organization() ? User::find_organization_id() : "";
         $offers = $offer->get_offers(0, $org_id);
-        Log::info($offers);
-        // dd(User::find_organization_id());
         return view('organization.internship_offers.index', compact('offers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.

@@ -17,7 +17,7 @@ class OrganizationAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if (User::is_organization()) {
+        if (User::is_organization() || User::is_admin()) {
             return $next($request);
         }
         return back()->with('error', 'Restricted!!! You do not have Access this Area');

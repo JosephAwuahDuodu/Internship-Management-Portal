@@ -22,7 +22,7 @@ class OrganizationController extends OrgService
         $industries = BaseServices::fetch_industry();
         // dd($regions);
         $organizations = $this->fetch_orgs(50);
-        return view('organizations.index', ['organizations'=>$organizations, 'regions'=>$regions, 'industries'=>$industries]);
+        return view('admin.organizations.index', ['organizations'=>$organizations, 'regions'=>$regions, 'industries'=>$industries]);
     }
 
     /**

@@ -18,12 +18,9 @@ class StudentAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if (User::is_admin()) {
-            return redirect()->route('admin');
-        } else {
-            return redirect()->route('student');
+        if (User::is_student() || User::is_admin()) {
+            return $next($request);
         }
-
-        return $next($request);
+        return back()->with('error', 'Restricted!!! You do not have Access this Area');
     }
 }

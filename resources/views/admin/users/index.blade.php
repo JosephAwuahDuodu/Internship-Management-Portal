@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col">
             @if ($users ?? "")
-                @include('users._users', ['users'=>$users])
+                @include('admin.users._users', ['users'=>$users])
             @else
                 <h3>Nothing to display</h3>
             @endif
         </div>
     </div>
 
-    @include('users._add_user_modal')
+    @include('admin.users._add_user_modal')
 
 @endsection
 
