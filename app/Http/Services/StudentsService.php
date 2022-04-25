@@ -17,10 +17,15 @@ class StudentsService extends Controller
     {
         if (empty($org_id)) {
             Log::info("\n\n IN ADMIN ");
-            return $limit <= 0 ? Student::all() : Student::paginate($limit);
+            return $limit == 0 ? Student::all() : Student::paginate($limit);
         } else {
             Log::info("\n\n IN ORGANIZATION ");
             return $limit <= 0 ? Student::where('org_id', $org_id)->get() : Student::where('org_id', $org_id)->paginate($limit);
         }
+    }
+
+    public function get_student_info(int $student_id)
+    {
+        return Student::where('student_id', $student_id)->first();
     }
 }
