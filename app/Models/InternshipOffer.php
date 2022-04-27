@@ -11,4 +11,9 @@ class InternshipOffer extends Model
     use HasFactory, SoftDeletes;
     // protected $primary_key = 'offer_id';
     protected $guarded = ['id'];
+
+    public function company()
+    {
+        return $this->hasOne(Organization::class, 'org_id', 'org_id');
+    }
 }

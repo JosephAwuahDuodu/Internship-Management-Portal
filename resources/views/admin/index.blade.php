@@ -24,7 +24,7 @@
                                             {{ $offer->title ?? "N/A" }}
                                         </a>
                                         <span class="widget-list-item-description-subtitle">
-                                            Company Name
+                                            {{ $offer->company->org_name ?? "Company Name"}}
                                         </span>
                                     </span>
                                 </li>
