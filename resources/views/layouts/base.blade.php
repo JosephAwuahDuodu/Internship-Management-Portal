@@ -57,6 +57,8 @@
                 @include('layouts.sidebar')
             @elseif (\App\Models\User::is_organization())
                 @include('layouts.org_sidebar')
+            @elseif (\App\Models\User::is_student())
+                @include('layouts.student_sidebar')
             @endif
 
             <div class="app-container">

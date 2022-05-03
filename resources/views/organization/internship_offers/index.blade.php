@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-xl-12">
-            @include('organization.internship_offers._offers')
+            @include('organization.internship_offers._offers', ['offers'=>$offers])
         </div>
     </div>
 

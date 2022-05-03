@@ -35,7 +35,8 @@ Route::middleware(['auth', 'org_access'])->prefix('org')->group(function () {
 
 // STUDENT AREA ROUTES
 Route::middleware(['auth', 'student_access'])->prefix('student')->group(function () {
-    Route::get('/', function () { return view('organization.index'); })->name('student');
+    // Route::get('/', function () { return view('student.index'); })->name('student');
+    Route::get("/", [HomeController::class, "student_home"])->name('student');
 
 });
 
