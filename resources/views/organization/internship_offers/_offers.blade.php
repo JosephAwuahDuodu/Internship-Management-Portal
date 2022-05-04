@@ -13,12 +13,34 @@
                     <span class="widget-list-item-icon"><i class="material-icons-outlined">article</i></span>
                     <span class="widget-list-item-description">
                         <a href="{{ route('internship_offers.show', ['internship_offer'=>$offer->offer_id]) }}" class="widget-list-item-description-title">
-                            {{ $offer->title }}
+                            <span style="font-weight:bold;"> Job Title:</span> {{ $offer->title }}
                         </a>
                         <span class="widget-list-item-description-subtitle">
-                            {{ $offer->job_description }}
+                            <span style="font-weight:bolder;"> Company:</span> {{ $offer->job_description }} |
+                            Posted: <span style="font-weight:bold;"> {{ $offer->created_at->diffForHumans() }} </span>
                         </span>
                     </span>
+
+                    {{-- show only when for admin  --}}
+                    @if (\App\Models\User::is_admin())
+                        <form action="{{ route('change_offer_status') }}" method="post">
+                            @csrf
+                            @if ($offer->active_status)
+                                <input type="hidden" name="offer" value="{{ $offer->offer_id }}">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="material-icons-outlined">cancel</i>
+                                    Disapprove
+                                </button>
+                            @else
+                                <input type="hidden" name="offer" value="{{ $offer->offer_id }}">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="material-icons-outlined">check</i>
+                                    Approve
+                                </button>
+                            @endif
+                        </form>
+                    @endif
+
                 </li>
 
                 @empty

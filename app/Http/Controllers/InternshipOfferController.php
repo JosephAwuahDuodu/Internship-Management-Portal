@@ -83,6 +83,12 @@ class InternshipOfferController extends Controller
         //
     }
 
+    public function change_status(InternshipOfferService $internship_offer)
+    {
+        // dd(request('offer'));
+        return $internship_offer->change_status(request('offer'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

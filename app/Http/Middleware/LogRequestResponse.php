@@ -18,12 +18,13 @@ class LogRequestResponse
     public function handle(Request $request, Closure $next)
     {
         // Log::alert("\nRequest Details: ");
-        Log::alert("\n#################Request Details#################".
+        Log::alert("\n\n#################Request Details#################".
         "\nFull Url: ".$request->fullUrl().
+        // "\ngetRequestUri: ".$request->getRequestUri().
         // "\nController Name: ".$request->route()->getController().
         // "\nController Class: ".$request->route()->getControllerClass().
         "\nAction Name: ".$request->route()->getActionName().
-        "\n#################Request Details#################"
+        "\n#################Request Details#################\n"
         );
         return $next($request);
     }

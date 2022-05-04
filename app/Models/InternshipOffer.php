@@ -12,6 +12,10 @@ class InternshipOffer extends Model
     // protected $primary_key = 'offer_id';
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function company()
     {
         return $this->hasOne(Organization::class, 'org_id', 'org_id');

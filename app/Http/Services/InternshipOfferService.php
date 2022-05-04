@@ -21,6 +21,21 @@ class InternshipOfferService {
         }
     }
 
+    public function change_status(string $offer_id)
+    {
+        $offer = InternshipOffer::where('offer_id', $offer_id)->first();
+        // dd($offer);
+        if ($offer->active_status) {
+            $offer->active_status = false;
+            $offer->save();
+            return back()->with('success', 'Successfully Deactivated');
+        } else {
+            $offer->active_status = true;
+            $offer->save();
+            return back()->with('success', 'Successfully Activated');
+        }
+    }
+
     public function get_offers(int $limit = 0, string $org_id = '')
     {
         // Log::info("\n ORG ID: $org_id");

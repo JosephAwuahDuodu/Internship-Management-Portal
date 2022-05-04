@@ -23,7 +23,7 @@ class HomeController extends Controller
     {
         $current_internship = StudentInternshipOffer::where('student_id', Auth::user()->username)->latest()->first();
         $internship_offers = InternshipOffer::where('active_status', true )->get();
-        dd($internship_offers);
+        // dd($internship_offers);
         return view('student.index', compact('current_internship', 'internship_offers'));
     }
 }

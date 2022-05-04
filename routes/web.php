@@ -16,6 +16,7 @@ Route::middleware(['auth', 'admin_access'])->prefix('admin')->group(function () 
     Route::get('/', [HomeController::class, 'admin'])->name('admin');
 
     Route::resource('internship_offers', InternshipOfferController::class)->only(['show', 'index']);
+    Route::post('change_offer_status', [InternshipOfferController::class, 'change_status'])->name('change_offer_status');
     Route::resource('organizations', OrganizationController::class);
     Route::resource('user', UserController::class);
     Route::resource('students', StudentController::class);
