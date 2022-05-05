@@ -16,14 +16,12 @@
             </li>
             <li><a href="{{ route('home') }}"><i class="material-icons-two-tone">dashboard</i>Home</a>
             </li>
-            <li>
-                <a href="{{ route('internship_offers.index') }}"><i class="material-icons-two-tone">book</i>Internship Offers</a>
-            </li>
+            {{-- <li><a href="{{ route('internship_offers.index') }}"><i class="material-icons-two-tone">book</i>Internship Offers</a></li> --}}
 
             <li class="sidebar-title">
                 Logs
             </li>
-            <li><a href=""><i class="material-icons-two-tone">book</i>My Logs</a></li>
+            <li><a href="{{ route('student_logs.index') }}"><i class="material-icons-two-tone">book</i>My Logs</a></li>
 
             <li class="sidebar-title">
                 System

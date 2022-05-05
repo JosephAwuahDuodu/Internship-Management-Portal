@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentInternshipLog;
+use App\Models\StudentInternshipOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentInternshipLogController extends Controller
 {
@@ -14,7 +16,9 @@ class StudentInternshipLogController extends Controller
      */
     public function index()
     {
-        //
+        // check if currently looged in user if admin, organization or student
+        $current_internship = StudentInternshipOffer::where([['student_id', Auth::user()->username], ['approval_status', true]])->first();
+        return view('student.log', compact('current_internship'));
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InternshipOfferController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentInternshipLogController;
 use App\Http\Controllers\StudentInternshipOfferController;
 use App\Http\Controllers\UserController;
 use App\Models\StudentInternshipOffer;
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'student_access'])->prefix('student')->group(function
     Route::resource("student_internships", StudentInternshipOffer::class);
     Route::resource('/offer_applications', StudentInternshipOfferController::class);
     Route::post('/withdraw_application', [StudentInternshipOfferController::class, 'withdraw_application'])->name('offer_applications.withdraw_application');
+    Route::resource('/student_logs', StudentInternshipLogController::class);
 
 });
 

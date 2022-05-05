@@ -29,8 +29,8 @@ class HomeController extends Controller
             $internship_offers = InternshipOffer::where('active_status', true)->get();
             return view('student.no_active_internships', compact('applied_internships', 'internship_offers'));
         } else {
-            // return view('student.no_active_internship', compact('current_internship', 'internship_offers'));
             return "User has active internship";
+            return view('student.active_internship', compact('current_internship', 'internship_offers'));
         }
         // $all_my_internships =
         // dd($internship_offers);
