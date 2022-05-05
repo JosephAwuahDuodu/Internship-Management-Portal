@@ -21,9 +21,18 @@ class HomeController extends Controller
 
     public function student_home()
     {
-        $current_internship = StudentInternshipOffer::where('student_id', Auth::user()->username)->latest()->first();
-        $internship_offers = InternshipOffer::where('active_status', true )->get();
+        $current_internship = StudentInternshipOffer::where([['student_id', Auth::user()->username], ['approval_status', true]])->first();
+        if (!$current_internship) {
+            $applied_internships = StudentInternshipOffer::where('student_id', Auth::user()->username)->latest()->pluck('offer_id');
+            // dd($applied_internship);
+            // $internship_offers = InternshipOffer::where('active_status', true)->whereNotIn('offer_id', $applied_internships)->get();
+            $internship_offers = InternshipOffer::where('active_status', true)->get();
+            return view('student.no_active_internships', compact('applied_internships', 'internship_offers'));
+        } else {
+            // return view('student.no_active_internship', compact('current_internship', 'internship_offers'));
+            return "User has active internship";
+        }
+        // $all_my_internships =
         // dd($internship_offers);
-        return view('student.index', compact('current_internship', 'internship_offers'));
     }
 }

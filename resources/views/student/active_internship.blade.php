@@ -8,11 +8,11 @@
 
     <div class="row">
         <div class="col-xl-12">
-            @if (empty($current_internship))
+            {{-- @if ($current_internship)
                 @include('components.alert', ['type'=>"danger", 'text'=>"You Are Currently Not Enrolled In Any Internship Yet."])
 
                 @include('student._offers', ['offers'=>$internship_offers])
-            @endif
+            @endif --}}
         </div>
     </div>
 @endsection

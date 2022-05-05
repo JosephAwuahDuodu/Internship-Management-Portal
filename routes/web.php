@@ -4,7 +4,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InternshipOfferController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentInternshipOfferController;
 use App\Http\Controllers\UserController;
+use App\Models\StudentInternshipOffer;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,6 +40,9 @@ Route::middleware(['auth', 'org_access'])->prefix('org')->group(function () {
 Route::middleware(['auth', 'student_access'])->prefix('student')->group(function () {
     // Route::get('/', function () { return view('student.index'); })->name('student');
     Route::get("/", [HomeController::class, "student_home"])->name('student');
+    Route::resource("student_internships", StudentInternshipOffer::class);
+    Route::resource('/offer_applications', StudentInternshipOfferController::class);
+    Route::post('/withdraw_application', [StudentInternshipOfferController::class, 'withdraw_application'])->name('offer_applications.withdraw_application');
 
 });
 

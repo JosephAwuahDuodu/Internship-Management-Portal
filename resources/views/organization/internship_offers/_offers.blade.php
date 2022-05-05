@@ -52,7 +52,6 @@
                             </a>
                         </span>
                     </li>
-
             @endforelse
         </ul>
     </div>

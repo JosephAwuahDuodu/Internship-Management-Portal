@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\StudentInternshipOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class StudentInternshipOfferController extends Controller
 {
@@ -35,7 +37,34 @@ class StudentInternshipOfferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['offer' => 'required|numeric',]);
+
+        try {
+            StudentInternshipOffer::create([
+                'student_id' => Auth::user()->username,
+                'offer_id' => $request->offer
+            ]);
+
+            return back()->with('success', 'Application Sent Successfully. Kindly Hold on for Feedback');
+        } catch (\Throwable $th) {
+            Log::alert("\n". $th->getMessage());
+            // return back()->with('error', $th->getMessage());
+            return back()->with('error', 'Application Could Not Be Sent. Error Occured');
+        }
+
+    }
+
+    public function withdraw_application()
+    {
+        $offer = request('offer');
+        try {
+            $offer = StudentInternshipOffer::where([['offer_id', $offer], ['student_id', Auth::user()->username]])->first();
+            $offer->delete();
+            return back()->with('success', 'Application Withdrawn Successfully');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+            return back()->with('error', 'Could Not Withdraw Application. Contact Admin or Try Again Later.');
+        }
     }
 
     /**

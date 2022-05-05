@@ -13,12 +13,38 @@
                     <span class="widget-list-item-icon"><i class="material-icons-outlined">article</i></span>
                     <span class="widget-list-item-description">
                         <a href="{{ route('internship_offers.show', ['internship_offer'=>$offer->offer_id]) }}" class="widget-list-item-description-title">
-                            {{ $offer->title }}
+                            <span style="font-weight:bold;"> Job Title:</span> {{ $offer->title }}
                         </a>
                         <span class="widget-list-item-description-subtitle">
-                            {{ $offer->job_description }}
+                            <span style="font-weight:bolder;"> Company:</span> {{ $offer->job_description }} |
+                            Posted: <span style="font-weight:bold;"> {{ $offer->created_at->diffForHumans() }} </span>
                         </span>
                     </span>
+
+                    @if (!$applied_internships->contains($offer->offer_id))
+                        <form action="{{ route('offer_applications.store') }}" method="post">
+                            @csrf
+
+                                <input type="hidden" name="offer" value="{{ $offer->offer_id }}">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="material-icons-outlined">check</i>
+                                    Apply
+                                </button>
+
+                        </form>
+                    @else
+                    <form action="{{ route('offer_applications.withdraw_application') }}" method="post">
+                        @csrf
+
+                            <input type="hidden" name="offer" value="{{ $offer->offer_id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="material-icons-outlined">cancel</i>
+                                Pending: Withdraw Application
+                            </button>
+
+                    </form>
+                    @endif
+
                 </li>
 
                 @empty
