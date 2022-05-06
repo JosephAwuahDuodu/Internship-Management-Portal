@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\InternshipOfferService;
 use App\Models\InternshipOffer;
 use App\Models\Organization;
 use App\Models\StudentInternshipOffer;
@@ -34,5 +35,15 @@ class HomeController extends Controller
         }
         // $all_my_internships =
         // dd($internship_offers);
+    }
+
+    public function org_home(InternshipOfferService $offer)
+    {
+        $org_id = User::find_organization_id();
+        $offers = $offer->get_offers(limit:0, org_id: $org_id);
+
+        $applicants = $offer->get_students_in_offers(0, $org_id);
+        // dd($applicants);
+        return view('organization.index', compact('offers', 'applicants'));
     }
 }

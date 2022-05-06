@@ -32,7 +32,8 @@ Route::middleware(['auth', 'admin_access'])->prefix('admin')->group(function () 
 
 // ORGANIZATION AREA ROUTES
 Route::middleware(['auth', 'org_access'])->prefix('org')->group(function () {
-    Route::get('/', function () { return view('organization.index'); })->name('org');
+    // Route::get('/', function () { return view(''); })->name('org');
+    Route::get("/", [HomeController::class, "org_home"])->name('student')->name('org');
     Route::resource('internship_offers', InternshipOfferController::class);
 });
 

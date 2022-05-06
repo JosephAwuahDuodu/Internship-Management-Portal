@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Models\InternshipOffer;
+use App\Models\StudentInternshipOffer;
 use Illuminate\Support\Facades\Log;
 
 class InternshipOfferService {
@@ -46,6 +47,15 @@ class InternshipOfferService {
         } else {
             Log::info("\n\n IN ALL ");
             return $limit <= 0 ? InternshipOffer::all() : InternshipOffer::paginate($limit);
+        }
+    }
+
+    public function get_students_in_offers(int $limit = 0, string $org_id = '')
+    {
+        if ($org_id != '') {
+            return StudentInternshipOffer::with('details')->where('org_id', $org_id)->get();
+        } else {
+            return StudentInternshipOffer::get();
         }
     }
 }

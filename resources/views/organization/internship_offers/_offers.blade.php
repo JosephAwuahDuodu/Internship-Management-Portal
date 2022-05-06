@@ -39,11 +39,23 @@
                                 </button>
                             @endif
                         </form>
+                    @else
+                        @if ($offer->active_status)
+                            <button type="button" class="btn btn-outline-success btn-sm">
+                                <i class="material-icons-outlined">check</i>
+                                Approved
+                            </button>
+                        @else
+                            <button type="button" class="btn btn-outlined-danger btn-sm">
+                                <i class="material-icons-outlined">cancek</i>
+                                Awaiting Approval
+                            </button>
+                        @endif
                     @endif
 
                 </li>
 
-                @empty
+            @empty
                     <li class="text-center widget-list-item widget-list-item-green">
                         <span class="widget-list-item-icon"><i class="material-icons-outlined">article</i></span>
                         <span class="widget-list-item-description">
