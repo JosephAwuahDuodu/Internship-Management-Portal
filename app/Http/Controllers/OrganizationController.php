@@ -6,6 +6,7 @@ use App\Http\Requests\OrganizationRequest;
 use App\Http\Services\OrgService;
 use App\Models\Organization;
 use App\Http\Services\BaseServices;
+use App\Http\Services\InternshipOfferService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -60,9 +61,11 @@ class OrganizationController extends OrgService
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function show(Organization $organization)
+    public function show($org_id, InternshipOfferService $offer)
     {
-        //
+        $organization = $this->fetch_orgs(0, $org_id);
+        $applicants = $offer->get_students_in_offers(0, $org_id);
+        return view('admin.organizations.show', compact('organization', 'applicants'));
     }
 
     /**

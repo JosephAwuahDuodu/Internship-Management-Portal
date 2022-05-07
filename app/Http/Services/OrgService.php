@@ -18,8 +18,12 @@ class OrgService extends Controller
         return str_shuffle($one.$two);
     }
 
-    protected function fetch_orgs(int $limit = 0)
+    protected function fetch_orgs(int $limit = 0, $org_id = '')
     {
+        // if org id was specified, fetch only 1 org
+        if ($org_id != '') {
+            return Organization::with(['info', 'location'])->where('org_id', $org_id)->first();
+        }
         return $limit == 0 ? Organization::with(['info', 'location'])->all() : Organization::with(['info', 'location'])->paginate($limit);
     }
 

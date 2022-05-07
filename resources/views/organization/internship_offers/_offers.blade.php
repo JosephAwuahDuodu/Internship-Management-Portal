@@ -16,8 +16,14 @@
                             <span style="font-weight:bold;"> Job Title:</span> {{ $offer->title }}
                         </a>
                         <span class="widget-list-item-description-subtitle">
-                            <span style="font-weight:bolder;"> Company:</span> {{ $offer->job_description }} |
-                            Posted: <span style="font-weight:bold;"> {{ $offer->created_at->diffForHumans() }} </span>
+                            @if (\App\Models\User::is_admin())
+                                <span style="font-weight:bolder;">
+                                    <a class="text-dark" href="{{ route('organizations.show', ['organization' => $offer->org_id]) }}">
+                                        Company:</span> {{ $offer->company->org_name }} |
+                                    </a>
+                                </span>
+                                @endif
+                                Posted: <span style="font-weight:bold;"> {{ $offer->created_at->diffForHumans() }} </span>
                         </span>
                     </span>
 

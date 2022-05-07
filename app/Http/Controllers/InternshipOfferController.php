@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Services\BaseServices;
 use App\Http\Services\InternshipOfferService;
 use App\Models\InternshipOffer;
+use App\Models\StudentInternshipOffer;
 use App\Models\User;
 use App\Models\UserRole;
 // use App\Http\Services\IntershipOfferService;
@@ -18,6 +19,7 @@ class InternshipOfferController extends Controller
     {
         $org_id = User::is_organization() ? User::find_organization_id() : "";
         $offers = $offer->get_offers(0, $org_id);
+        // dd($offers);
         return view('organization.internship_offers.index', compact('offers'));
     }
 
@@ -53,10 +55,11 @@ class InternshipOfferController extends Controller
      * @param  \App\Models\InternshipOffer  $internshipOffer
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $req)
+    public function show(Request $req, InternshipOfferService $internshipOfferService)
     {
         $offer = InternshipOffer::where('offer_id', $req->internship_offer)->first();
-        $applicants = [];
+        $applicants = StudentInternshipOffer::where('offer_id', $req->internship_offer)->get();
+        // dd($applicants);
         return view('organization.internship_offers.show', compact('offer', 'applicants'));
     }
 

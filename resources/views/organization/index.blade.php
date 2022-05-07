@@ -25,18 +25,16 @@
                                     <span class="widget-list-item-icon"><i class="material-icons-outlined">article</i></span>
                                     <span class="widget-list-item-description">
                                         <a class="widget-list-item-description-title">
-                                            {{ $applicant->details->name }}
+                                            {{ $applicant->details->name ?? "" }} | {{ $applicant->offer_details->title ?? "" }}
                                         </a>
                                     </span>
                                     <span class="widget-list-item-description-subtitle">
                                         @if ($applicant->active_status)
                                             <button type="button" class="btn btn-outline-success btn-sm">
-                                                {{-- <i class="material-icons-outlined">check</i> --}}
                                                 Approved
                                             </button>
                                         @else
                                             <button type="button" class="btn btn-outline-danger btn-sm">
-                                                {{-- <i class="material-icons-outlined">cancek</i> --}}
                                                 Awaiting Approval
                                             </button>
                                         @endif

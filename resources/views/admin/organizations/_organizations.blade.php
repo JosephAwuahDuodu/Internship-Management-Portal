@@ -24,7 +24,7 @@
                             <td>{{ $organization->info->email ?? "" }}</td>
                             <td>{{ $organization->location->address ?? "" }}</td>
                             <td style="min-width: 200px;">
-                                <button class="btn btn-sm btn-success">View</button>
+                                <a href="{{ route('organizations.show', ['organization'=>$organization->org_id]) }}" class="btn btn-sm btn-success">View</a>
                                 <button class="btn btn-sm btn-warning">Edit</button>
                                 <button class="btn btn-sm btn-danger">Disable</button>
                             </td>

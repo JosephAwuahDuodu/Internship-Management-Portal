@@ -1,37 +1,45 @@
 <div class="card widget widget-list">
     <div class="card-header">
-        <h5 class="card-title">Applicants
-            <span class="badge badge-success badge-style-light">
-                <a href="{{ route('internship_offers.index') }}" class="btn btn-sm btn-danger">Back</a>
-            </span>
-        </h5>
+        <h4 class="fw-bold text-decoration-underline">Applicants <span class="badge badge-success badge-style-light"></span></h4>
     </div>
     <div class="card-body">
-        <ul class="widget-list-content list-unstyled">
+        {{-- <span class="text-muted m-b-xs d-block">showing 5 out of 23 active tasks.</span> --}}
+        @if ($applicants ?? "")
             @forelse ($applicants as $applicant)
-                <li class="widget-list-item widget-list-item-green">
-                    <span class="widget-list-item-icon"><i class="material-icons-outlined">article</i></span>
-                    <span class="widget-list-item-description">
-                        <a href="{{ route('internship_applicants.show', ['internship_applicant'=>$applicant->applicant_id]) }}" class="widget-list-item-description-title">
-                            {{ $applicant->title }}
-                        </a>
-                        <span class="widget-list-item-description-subtitle">
-                            {{ $applicant->job_description }}
-                        </span>
-                    </span>
-                </li>
-
-                @empty
-                    <li class="text-center widget-list-item widget-list-item-green">
-                        {{-- <span class="widget-list-item-icon"><i class="material-icons-outlined">article</i></span> --}}
+                <ul class="widget-list-content list-unstyled">
+                    <li class="widget-list-item widget-list-item-green">
+                        <span class="widget-list-item-icon"><i class="material-icons-outlined">article</i></span>
                         <span class="widget-list-item-description">
-                            <a  class="widget-list-item-description-title text-danger font-weight-bold">
-                                No Applicants in this Offer Yet!
+                            <a class="widget-list-item-description-title">
+                                {{ $applicant->details->name }}
                             </a>
                         </span>
+                        <span class="widget-list-item-description-subtitle">
+                            @if ($applicant->active_status)
+                                <button type="button" class="btn btn-outline-success btn-sm">
+                                    {{-- <i class="material-icons-outlined">check</i> --}}
+                                    Approved
+                                </button>
+                            @else
+                                @if (\App\Models\User::is_organization())
+                                    <form action="" method="post" style="display: inline;">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            {{-- <i class="material-icons-outlined">cancek</i> --}}
+                                            Approve
+                                        </button>
+                                    </form>
+                                @endif
+                                <button type="button" class="btn btn-outline-danger btn-sm">
+                                    {{-- <i class="material-icons-outlined">cancek</i> --}}
+                                    Awaiting Approval
+                                </button>
+                            @endif
+                        </span>
                     </li>
-
+                </ul>
+            @empty
+                <div class="alert alert-danger">No Records Found</div>
             @endforelse
-        </ul>
+        @endif
     </div>
 </div>
