@@ -20,4 +20,14 @@ class StudentInternshipOffer extends Model
     {
         return $this->hasOne(InternshipOffer::class, 'offer_id', 'offer_id');
     }
+
+    public function organization()
+    {
+        return $this->hasOne(Organization::class, 'org_id', 'org_id');
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'student_id', 'student_id');
+    }
 }

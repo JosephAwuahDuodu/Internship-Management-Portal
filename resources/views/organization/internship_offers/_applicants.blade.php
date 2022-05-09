@@ -22,15 +22,22 @@
                                 </button>
                             @else
                                 @if (\App\Models\User::is_organization())
-                                    <form action="" method="post" style="display: inline;">
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            {{-- <i class="material-icons-outlined">cancek</i> --}}
+                                    <form action="{{ route('approve_intership_request') }}" method="post" style="display: inline;">
+                                        @csrf
+                                        <input type="hidden" name="request" value="{{ $applicant->id }}">
+                                        <button onclick="return confirm('Are You Sure?')" type="submit" class="btn btn-success btn-sm">
                                             Approve
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('approve_intership_request') }}" method="post" style="display: inline;">
+                                        @csrf
+                                        <input type="hidden" name="request" value="{{ $applicant->id }}">
+                                        <button onclick="return confirm('Are You Sure?')" type="submit" class="btn btn-danger btn-sm">
+                                            Reject
                                         </button>
                                     </form>
                                 @endif
                                 <button type="button" class="btn btn-outline-danger btn-sm">
-                                    {{-- <i class="material-icons-outlined">cancek</i> --}}
                                     Awaiting Approval
                                 </button>
                             @endif

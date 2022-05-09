@@ -7,6 +7,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentInternshipLogController;
 use App\Http\Controllers\StudentInternshipOfferController;
 use App\Http\Controllers\UserController;
+use App\Http\Services\BaseServices;
 use App\Models\StudentInternshipOffer;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,12 @@ Route::middleware(['auth', 'org_access'])->prefix('org')->group(function () {
     // Route::get('/', function () { return view(''); })->name('org');
     Route::get("/", [HomeController::class, "org_home"])->name('org');
     Route::resource('internship_offers', InternshipOfferController::class);
+    Route::post("/approve_internship_request", [StudentInternshipOfferController::class, 'approve_intership_request'])->name('approve_intership_request');
+});
+
+Route::get("/test", function(BaseServices $baseService) {
+        $request  = $baseService->get_internship_request_by_id(2);
+        dd($request);
 });
 
 

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\BaseServices;
+use App\Jobs\ProcessTextMessage;
+use App\Models\Student;
+use App\Models\StudentInternshipLog;
 use App\Models\StudentInternshipOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +28,7 @@ class StudentInternshipOfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function send_sms($message, $student_id)
     {
         //
     }
@@ -66,6 +70,78 @@ class StudentInternshipOfferController extends Controller
             return back()->with('error', 'Could Not Withdraw Application. Contact Admin or Try Again Later.');
         }
     }
+
+    private function message_text($type, $org_name, $student_name)
+    {
+        if ($type = "success") {
+            return "Hi, ". $student_name . " your internship request sent to " . $org_name . " has been successfully approved.";
+        } else {
+            return "Hi, ". $student_name . " your internship request sent to " . $org_name . " has been rejected. Kindly apply for another offer.";
+        }
+
+    }
+
+    public function approve_intership_request()
+    {
+        $req_id = request('request');
+        $req = BaseServices::get_internship_request_by_id($req_id);
+
+        $student_name = $req->student->name;
+        $student_id = $req->student->student_id;
+        $phone = $req->student->phone;
+        $org_name = $req->organization->org_name;
+
+        try {
+            $req->approval_status = true;
+            $req->active_status = true;
+            $req->save();
+        } catch (\Throwable $th) {
+            return "Error ...." .$th->getMessage();
+        }
+
+        // SET ACTIVE INTERNSHIP IN STUDENT TABLE TO TRUE
+        $this->set_active_internship($student_id);
+        // CREATE FIRST LOG AS (INTERNSHIP STARTED WITH DATE)
+        $this->write_student_first_log($org_name, $req->offer_id, $student_id);
+        // GENERATE A TYPE OF MESSAGE
+        $message = $this->message_text("success", $org_name, $student_name);
+        // return $message;
+        ProcessTextMessage::dispatch($message, $phone);
+
+        return back()->with('success', 'You have successfully approved internship for '.$student_name);
+
+    }
+
+    private function set_active_internship(int $student_id)
+    {
+        try {
+            Student::where('student_id', $student_id)->first()->update(['active_internship'=>true]);
+            return true;
+        } catch (\Throwable $th) {
+            Log::info("Could Not Change Active Internship Status". $th->getMessage());
+        }
+    }
+
+    private function write_student_first_log($org_name, $offer_id, $student_id)
+    {
+        // $request  = BaseServices::get_internship_request_by_id($req_id);
+        try {
+            // $org_name = $request->organization->org_name ?? "";
+            $text = "Internship Request Approved by Started $org_name ";
+            $stu_log = StudentInternshipLog::create([
+                'student_id' =>$student_id ,
+                'offer_id' =>$offer_id ,
+                'log_text' =>$text ,
+                'supervisor_approval' =>true ,
+                'supervisor_approval_date' =>now() ,
+            ]);
+            // print_r($stu_log);
+            return true;
+        } catch (\Throwable $th) {
+            Log::info("Could Not Write Student Log". $th->getMessage());
+        }
+    }
+
 
     /**
      * Display the specified resource.
