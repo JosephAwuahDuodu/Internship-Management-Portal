@@ -20,22 +20,26 @@
                                     {{-- <i class="material-icons-outlined">check</i> --}}
                                     Approved
                                 </button>
+
+                                <form action="{{ route('act_on_intership_request') }}" method="post" style="display: inline;">
+                                    @csrf
+                                    <input type="hidden" name="action_type" value="reject">
+                                    <input type="hidden" name="request" value="{{ $applicant->id }}">
+                                    <button onclick="return confirm('Are You Sure?')" type="submit" class="btn btn-danger btn-sm">
+                                        Reject
+                                    </button>
+                                </form>
                             @else
                                 @if (\App\Models\User::is_organization())
-                                    <form action="{{ route('approve_intership_request') }}" method="post" style="display: inline;">
+                                    <form action="{{ route('act_on_intership_request') }}" method="post" style="display: inline;">
                                         @csrf
+                                        <input type="hidden" name="action_type" value="approve">
                                         <input type="hidden" name="request" value="{{ $applicant->id }}">
                                         <button onclick="return confirm('Are You Sure?')" type="submit" class="btn btn-success btn-sm">
                                             Approve
                                         </button>
                                     </form>
-                                    <form action="{{ route('approve_intership_request') }}" method="post" style="display: inline;">
-                                        @csrf
-                                        <input type="hidden" name="request" value="{{ $applicant->id }}">
-                                        <button onclick="return confirm('Are You Sure?')" type="submit" class="btn btn-danger btn-sm">
-                                            Reject
-                                        </button>
-                                    </form>
+
                                 @endif
                                 <button type="button" class="btn btn-outline-danger btn-sm">
                                     Awaiting Approval

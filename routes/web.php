@@ -36,7 +36,7 @@ Route::middleware(['auth', 'org_access'])->prefix('org')->group(function () {
     // Route::get('/', function () { return view(''); })->name('org');
     Route::get("/", [HomeController::class, "org_home"])->name('org');
     Route::resource('internship_offers', InternshipOfferController::class);
-    Route::post("/approve_internship_request", [StudentInternshipOfferController::class, 'approve_intership_request'])->name('approve_intership_request');
+    Route::post("/act_on_intership_request", [StudentInternshipOfferController::class, 'act_on_intership_request'])->name('act_on_intership_request');
 });
 
 Route::get("/test", function(BaseServices $baseService) {

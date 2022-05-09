@@ -73,7 +73,7 @@ class StudentInternshipOfferController extends Controller
 
     private function message_text($type, $org_name, $student_name)
     {
-        if ($type = "success") {
+        if ($type == "approve") {
             return "Hi, ". $student_name . " your internship request sent to " . $org_name . " has been successfully approved.";
         } else {
             return "Hi, ". $student_name . " your internship request sent to " . $org_name . " has been rejected. Kindly apply for another offer.";
@@ -81,9 +81,11 @@ class StudentInternshipOfferController extends Controller
 
     }
 
-    public function approve_intership_request()
+    public function act_on_intership_request()
     {
         $req_id = request('request');
+        $action_type = request('action_type');
+
         $req = BaseServices::get_internship_request_by_id($req_id);
 
         $student_name = $req->student->name;
@@ -92,46 +94,47 @@ class StudentInternshipOfferController extends Controller
         $org_name = $req->organization->org_name;
 
         try {
-            $req->approval_status = true;
-            $req->active_status = true;
+            $req->approval_status = $action_type == "reject" ? false : true;
+            $req->active_status = $action_type == "reject" ? false : true;
             $req->save();
         } catch (\Throwable $th) {
             return "Error ...." .$th->getMessage();
         }
 
         // SET ACTIVE INTERNSHIP IN STUDENT TABLE TO TRUE
-        $this->set_active_internship($student_id);
+        $this->set_active_internship($student_id, $action_type);
         // CREATE FIRST LOG AS (INTERNSHIP STARTED WITH DATE)
-        $this->write_student_first_log($org_name, $req->offer_id, $student_id);
+        $this->write_student_first_log($org_name, $req->offer_id, $student_id, $action_type);
         // GENERATE A TYPE OF MESSAGE
-        $message = $this->message_text("success", $org_name, $student_name);
-        // return $message;
+        $message = $this->message_text($action_type, $org_name, $student_name);
+
         ProcessTextMessage::dispatch($message, $phone);
 
-        return back()->with('success', 'You have successfully approved internship for '.$student_name);
+        $action = $action_type == "approve" ? "approved" : "rejected";
+        return back()->with('success', "You have successfully $action internship for $student_name");
 
     }
 
-    private function set_active_internship(int $student_id)
+    private function set_active_internship(int $student_id, $action_type)
     {
+        $action = $action_type == "approve" ? true : false;
         try {
-            Student::where('student_id', $student_id)->first()->update(['active_internship'=>true]);
+            Student::where('student_id', $student_id)->first()->update(['active_internship'=>$action]);
             return true;
         } catch (\Throwable $th) {
             Log::info("Could Not Change Active Internship Status". $th->getMessage());
         }
     }
 
-    private function write_student_first_log($org_name, $offer_id, $student_id)
+    private function write_student_first_log($org_name, $offer_id, $student_id, $action_type)
     {
-        // $request  = BaseServices::get_internship_request_by_id($req_id);
         try {
-            // $org_name = $request->organization->org_name ?? "";
-            $text = "Internship Request Approved by Started $org_name ";
+            $approval_text = "Internship Request Approved by $org_name ";
+            $rejection_text = "Internship Request Cancel by $org_name ";
             $stu_log = StudentInternshipLog::create([
                 'student_id' =>$student_id ,
                 'offer_id' =>$offer_id ,
-                'log_text' =>$text ,
+                'log_text' =>$action_type == "approve" ? $approval_text : $rejection_text ,
                 'supervisor_approval' =>true ,
                 'supervisor_approval_date' =>now() ,
             ]);
