@@ -1,9 +1,11 @@
 <div class="card widget widget-list">
     <div class="card-header">
         <h5 class="card-title">Listed Openings
-            <span class="badge badge-success badge-style-light">
-                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#add_internship_offer_modal">Add New Offer</button>
-            </span>
+            @if (\App\Models\User::is_organization())
+                <span class="badge badge-success badge-style-light">
+                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#add_internship_offer_modal">Add New Offer</button>
+                </span>
+            @endif
         </h5>
     </div>
     <div class="card-body">

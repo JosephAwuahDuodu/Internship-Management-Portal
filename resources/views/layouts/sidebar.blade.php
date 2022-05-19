@@ -35,7 +35,7 @@
                 System
             </li>
             <li><a href="{{ route('user.index') }}"><i class="material-icons-two-tone">book</i>Manage Users</a></li>
-            <li><a href=""><i class="material-icons-two-tone">book</i>System Logs</a></li>
+            {{-- <li><a href=""><i class="material-icons-two-tone">book</i>System Logs</a></li> --}}
             <li><a href=""><i class="material-icons-two-tone">edit</i>Edit My Profile</a></li>
 
             <li class="text-center mt-3">

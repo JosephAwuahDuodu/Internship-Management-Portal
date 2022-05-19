@@ -53,6 +53,7 @@ Route::middleware(['auth', 'student_access'])->prefix('student')->group(function
     Route::resource('/offer_applications', StudentInternshipOfferController::class);
     Route::post('/withdraw_application', [StudentInternshipOfferController::class, 'withdraw_application'])->name('offer_applications.withdraw_application');
     Route::resource('/student_logs', StudentInternshipLogController::class);
+    // Route::get('add_internship_log', [StudentInternshipLogController::class, 'add_internship_log'])->name('add_internship_log');
 
 });
 
