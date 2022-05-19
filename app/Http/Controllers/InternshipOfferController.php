@@ -19,8 +19,9 @@ class InternshipOfferController extends Controller
     {
         $org_id = User::is_organization() ? User::find_organization_id() : "";
         $offers = $offer->get_offers(0, $org_id);
-        // dd($offers);
-        return view('organization.internship_offers.index', compact('offers'));
+        $current_org_id = $org_id ?? "";
+        // dd($current_org_id);
+        return view('organization.internship_offers.index', compact('offers', 'current_org_id'));
     }
 
 
@@ -38,10 +39,13 @@ class InternshipOfferController extends Controller
             'dept' => 'nullable|string',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
+            'org_id' => 'required'
         ]);
 
-        $offer = $internship_offer->save_offer($new_offer);
+        // dd($new_offer);
 
+        $offer = $internship_offer->save_offer($new_offer);
+        print_r($offer);
         if ($offer) {
             return back()->with('success', 'Internship Offer Saved Successfully');
         } else {
@@ -58,7 +62,7 @@ class InternshipOfferController extends Controller
     public function show(Request $req, InternshipOfferService $internshipOfferService)
     {
         $offer = InternshipOffer::where('offer_id', $req->internship_offer)->first();
-        $applicants = StudentInternshipOffer::where('offer_id', $req->internship_offer)->get();
+        $applicants = StudentInternshipOffer::where('offer_id', $req->internship_offer)->latest()->get();
         // dd($applicants);
         return view('organization.internship_offers.show', compact('offer', 'applicants'));
     }

@@ -42,6 +42,7 @@
                             <input name="end_date" value="{{ old('end_date') }}" type="date" class="form-control" id="end_date">
                         </div>
                     </div>
+                    <input type="hidden" name="org_id" value="{{ $current_org_id }}">
 
 
                 </div>

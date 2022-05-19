@@ -13,6 +13,7 @@ class InternshipOfferService {
         $offer['offer_id'] = $offer_id;
 
         try {
+            Log::info("\n Internship Offer Start Save. \n ");
             $offer = InternshipOffer::create($offer);
             Log::info("\n Internship Offer Saved Successfully. \n ");
             return $offer;
@@ -43,7 +44,7 @@ class InternshipOfferService {
 
         if ($org_id != '') {
             Log::info("\n\n IN ORGANIZATION ");
-            return $limit <= 0 ? InternshipOffer::where('org_id', $org_id)->with('company')->get() : InternshipOffer::with('company')->where('org_id', $org_id)->paginate($limit);
+            return $limit <= 0 ? InternshipOffer::where('org_id', $org_id)->with('company')->get() : InternshipOffer::with('company')->where('org_id', $org_id)->latest()->paginate($limit);
         } else {
             Log::info("\n\n IN ALL ");
             return $limit <= 0 ? InternshipOffer::with('company')->get() : InternshipOffer::with('company')->paginate($limit);

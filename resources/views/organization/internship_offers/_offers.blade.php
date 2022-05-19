@@ -7,6 +7,7 @@
         </h5>
     </div>
     <div class="card-body">
+        {{-- <h1>{{ $current_org_id }}</h1> --}}
         <ul class="widget-list-content list-unstyled">
             @forelse ($offers as $offer)
                 <li class="widget-list-item widget-list-item-green">
